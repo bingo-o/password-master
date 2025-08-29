@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Master - 智能密码生成器</title>
+    <meta name="description" content="安全、易用的在线密码生成工具，帮助您创建强密码并提供密码安全性检测功能">
+    <meta name="keywords" content="密码生成器,安全密码,随机密码,密码工具">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="light-theme">
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Password Master</span>
+                </div>
+                <div class="header-actions">
+                    <button id="languageToggle" class="btn-icon" title="切换语言">
+                        <i class="fas fa-globe"></i>
+                    </button>
+                    <button id="themeToggle" class="btn-icon" title="切换主题">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <h1 class="hero-title" data-en="Secure Password Generator" data-zh="智能密码生成器">智能密码生成器</h1>
+                <p class="hero-subtitle" data-en="Generate strong, secure passwords instantly with advanced customization options" data-zh="快速生成强密码，支持高级自定义选项，保护您的账户安全">快速生成强密码，支持高级自定义选项，保护您的账户安全</p>
+            </section>
+
+            <!-- Password Generator -->
+            <section class="generator-section">
+                <!-- Generated Password Display -->
+                <div class="password-display">
+                    <div class="password-field">
+                        <input type="text" id="generatedPassword" class="password-input" placeholder="点击生成密码..." readonly>
+                        <div class="password-actions">
+                            <button id="copyPassword" class="btn-icon" title="复制密码" disabled>
+                                <i class="fas fa-copy"></i>
+                            </button>
+                            <button id="regeneratePassword" class="btn-icon" title="重新生成">
+                                <i class="fas fa-refresh"></i>
+                            </button>
+                            <button id="showHistory" class="btn-icon" title="历史记录">
+                                <i class="fas fa-history"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Password Strength Indicator -->
+                    <div class="strength-indicator">
+                        <div class="strength-bar">
+                            <div id="strengthBar" class="strength-fill"></div>
+                        </div>
+                        <span id="strengthText" class="strength-text" data-en="Click generate to see strength" data-zh="点击生成查看强度">点击生成查看强度</span>
+                    </div>
+                </div>
+
+                <!-- Configuration Options -->
+                <div class="config-panel">
+                    <div class="config-grid">
+                        <!-- Password Length -->
+                        <div class="config-group">
+                            <label class="config-label" data-en="Password Length" data-zh="密码长度">密码长度</label>
+                            <div class="length-control">
+                                <input type="range" id="lengthSlider" class="length-slider" min="4" max="128" value="16">
+                                <input type="number" id="lengthInput" class="length-input" min="4" max="128" value="16">
+                            </div>
+                        </div>
+
+                        <!-- Character Types -->
+                        <div class="config-group">
+                            <label class="config-label" data-en="Character Types" data-zh="字符类型">字符类型</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="includeUppercase" checked>
+                                    <span class="checkmark"></span>
+                                    <span data-en="Uppercase (A-Z)" data-zh="大写字母 (A-Z)">大写字母 (A-Z)</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="includeLowercase" checked>
+                                    <span class="checkmark"></span>
+                                    <span data-en="Lowercase (a-z)" data-zh="小写字母 (a-z)">小写字母 (a-z)</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="includeNumbers" checked>
+                                    <span class="checkmark"></span>
+                                    <span data-en="Numbers (0-9)" data-zh="数字 (0-9)">数字 (0-9)</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="includeSymbols" checked>
+                                    <span class="checkmark"></span>
+                                    <span data-en="Symbols (!@#$...)" data-zh="特殊符号 (!@#$...)">特殊符号 (!@#$...)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Advanced Options -->
+                        <div class="config-group">
+                            <label class="config-label" data-en="Advanced Options" data-zh="高级选项">高级选项</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="excludeSimilar">
+                                    <span class="checkmark"></span>
+                                    <span data-en="Exclude similar characters (0,O,l,1)" data-zh="排除易混淆字符 (0,O,l,1)">排除易混淆字符 (0,O,l,1)</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="excludeAmbiguous">
+                                    <span class="checkmark"></span>
+                                    <span data-en="Exclude ambiguous characters" data-zh="排除有歧义字符">排除有歧义字符</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Batch Generation -->
+                        <div class="config-group">
+                            <label class="config-label" data-en="Batch Generation" data-zh="批量生成">批量生成</label>
+                            <div class="batch-control">
+                                <input type="number" id="batchCount" class="batch-input" min="1" max="100" value="1" placeholder="数量">
+                                <button id="generateBatch" class="btn-secondary" data-en="Generate Multiple" data-zh="批量生成">批量生成</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Generate Button -->
+                    <button id="generatePassword" class="btn-primary">
+                        <i class="fas fa-key"></i>
+                        <span data-en="Generate Password" data-zh="生成密码">生成密码</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Password Analysis -->
+            <section class="analysis-section">
+                <div class="analysis-card">
+                    <h3 class="analysis-title" data-en="Password Analysis" data-zh="密码分析">密码分析</h3>
+                    <div id="analysisContent" class="analysis-content">
+                        <p class="analysis-placeholder" data-en="Generate a password to see detailed analysis" data-zh="生成密码后查看详细分析">生成密码后查看详细分析</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modals -->
+    
+    <!-- History Modal -->
+    <div id="historyModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 data-en="Password History" data-zh="密码历史">密码历史</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="historyList" class="history-list">
+                    <p class="history-empty" data-en="No passwords generated yet" data-zh="暂无生成记录">暂无生成记录</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="clearHistory" class="btn-secondary" data-en="Clear History" data-zh="清除历史">清除历史</button>
+                <button id="exportHistory" class="btn-primary" data-en="Export" data-zh="导出">导出</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Batch Results Modal -->
+    <div id="batchModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 data-en="Generated Passwords" data-zh="生成的密码">生成的密码</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="batchResults" class="batch-results"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="copyAllPasswords" class="btn-secondary" data-en="Copy All" data-zh="全部复制">全部复制</button>
+                <button id="exportBatch" class="btn-primary" data-en="Export" data-zh="导出">导出</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p data-en="All passwords are generated locally in your browser. We don't store any passwords." data-zh="所有密码均在您的浏览器本地生成，我们不会存储任何密码。">所有密码均在您的浏览器本地生成，我们不会存储任何密码。</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#" class="footer-link" data-en="Privacy Policy" data-zh="隐私政策">隐私政策</a>
+                    <a href="#" class="footer-link" data-en="Security Tips" data-zh="安全建议">安全建议</a>
+                    <a href="https://github.com" class="footer-link" target="_blank">
+                        <i class="fab fa-github"></i>
+                        GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>

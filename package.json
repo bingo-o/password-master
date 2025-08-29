@@ -1,0 +1,37 @@
+{
+  "name": "password-master",
+  "version": "1.0.0",
+  "description": "一个现代化、安全的在线密码生成工具",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "serve": "npx serve .",
+    "dev": "npx live-server .",
+    "build": "echo 'No build process needed for static site'",
+    "test": "echo 'No tests specified'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-username/password-master.git"
+  },
+  "keywords": [
+    "password",
+    "generator",
+    "security",
+    "crypto",
+    "web-app",
+    "javascript",
+    "html5",
+    "css3"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/your-username/password-master/issues"
+  },
+  "homepage": "https://github.com/your-username/password-master#readme",
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "serve": "^14.2.1"
+  }
+}
